@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import AllImages from './AllImages';
 
 function App() {
+  const [windowSize, setWindowSize] = useState({ h: 0, w: 0 });
+
+  const updateWindowSize = () => {
+    setWindowSize({ h: window.innerHeight, w: window.innerWidth });
+  };
+
+  useEffect(() => {
+    setWindowSize({ h: window.innerHeight, w: window.innerWidth });
+
+    window.addEventListener('resize', updateWindowSize);
+    return () => window.removeEventListener('resize', updateWindowSize);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <AllImages windowHeight={windowSize.h} windowWidth={windowSize.w} />
     </div>
   );
 }
