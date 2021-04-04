@@ -5,7 +5,9 @@ interface Props {
 }
 
 function AllImages({ windowHeight, windowWidth }: Props) {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Array<string>>([]);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [loadedCount, setLoadedCount] = useState<Array<number>>([]);
 
   const recursiveFetch = async () => {
     try {
