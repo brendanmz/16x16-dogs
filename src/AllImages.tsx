@@ -11,7 +11,8 @@ function AllImages({ windowHeight, windowWidth }: Props) {
 
   const recursiveFetch = async () => {
     try {
-      let data = await fetch('https://dog.ceo/api/breeds/image/random/16');
+      // loads 16 random dog images
+      const data = await fetch('https://dog.ceo/api/breeds/image/random/16');
       const response = await data.json();
       setImages(response.message);
     } catch (error) {
@@ -24,16 +25,30 @@ function AllImages({ windowHeight, windowWidth }: Props) {
     recursiveFetch();
   }, []);
 
+  /** Set's allLoaded to true when all images have been received */
+  const handleImagesLoaded = (index: number) => () => {
+    setLoadedCount([...loadedCount, index]);
+    if (loadedCount.length === 15) {
+      setAllLoaded(true);
+    }
+  };
+
   return (
     <div>
       {images.map((url, index) => (
         <img
-          style={{ objectFit: 'cover' }}
-          width={windowWidth / 4}
-          height={windowHeight / 4}
+          style={{
+            objectFit: 'cover',
+            opacity: allLoaded ? 1 : 0,
+            transition: `opacity 0.25s ease-in`,
+            transitionDelay: `${index / 8}s`,
+          }}
+          width={Math.round(windowWidth / 4) - 4} // TODO: find better solution to avoid page wrapping
+          height={Math.round(windowHeight / 4)}
           key={url}
           src={url}
           alt={`${index}`}
+          onLoad={handleImagesLoaded(index)}
         />
       ))}
     </div>
