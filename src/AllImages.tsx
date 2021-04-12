@@ -4,7 +4,7 @@ interface Props {
   windowWidth: number;
 }
 
-function AllImages({ windowHeight, windowWidth }: Props) {
+const AllImages = ({ windowHeight, windowWidth }: Props) => {
   const [images, setImages] = useState<Array<string>>([]);
   const [allLoaded, setAllLoaded] = useState(false);
   const [loadedCount, setLoadedCount] = useState<Array<number>>([]);
@@ -59,6 +59,6 @@ function AllImages({ windowHeight, windowWidth }: Props) {
       ))}
     </div>
   );
-}
+};
 
 export default AllImages;
