@@ -34,7 +34,13 @@ function AllImages({ windowHeight, windowWidth }: Props) {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 1fr)',
+        gridTemplateRows: 'repeat(6, 1fr)',
+      }}
+    >
       {images.map((url, index) => (
         <img
           style={{
@@ -43,7 +49,7 @@ function AllImages({ windowHeight, windowWidth }: Props) {
             transition: `opacity 0.25s ease-in`,
             transitionDelay: `${index / 16}s`,
           }}
-          width={Math.round(windowWidth / 6) - 4} // TODO: find better solution to avoid page wrapping
+          width={Math.round(windowWidth / 6)}
           height={Math.round(windowHeight / 6)}
           key={url}
           src={url}
