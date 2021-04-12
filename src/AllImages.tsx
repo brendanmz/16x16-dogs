@@ -10,7 +10,7 @@ function AllImages({ windowHeight, windowWidth }: Props) {
   const [loadedCount, setLoadedCount] = useState<Array<number>>([]);
 
   /** Loads 36 random dog images */
-  const recursiveFetch = async () => {
+  const fetchImages: () => void = async () => {
     try {
       const data = await fetch('https://dog.ceo/api/breeds/image/random/36');
       const response = await data.json();
@@ -22,7 +22,7 @@ function AllImages({ windowHeight, windowWidth }: Props) {
   };
 
   useEffect(() => {
-    recursiveFetch();
+    fetchImages();
   }, []);
 
   /** Set's allLoaded to true when all images have been received */
